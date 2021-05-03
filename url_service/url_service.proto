@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package url_service;
+
+option go_package = "/url_service";
+
+message Url {
+  string id = 1;
+  string url = 2;
+  string method = 3;
+  string time_created = 4;
+  string time_interval = 5;
+}
+
+message UrlPostRequest{
+  string url = 1;
+  string method = 2;
+  string time_interval = 3;
+}
+
+message UrlPostResponse{
+  Url url = 1;
+}
+
+message Check{
+  string id = 1;
+  string url = 2;
+  int32 status_code = 3;
+  string time_checked = 4;
+}
+
+message CheckGetRequest{
+  string url = 1;
+  int32 limit = 2;
+}
+
+message CheckGetResponse{
+  repeated Check checks = 1;
+}
+
+message UrlGetRequest{
+  string date = 1;
+  int32 n = 2;
+}
+
+message UrlGetResponse{
+  repeated string urls = 1;
+}
+
+service UrlService {
+  rpc PostUrl(UrlPostRequest) returns (UrlPostResponse) {}
+  rpc GetChecks(CheckGetRequest) returns (CheckGetResponse) {}
+  rpc GetUrls(UrlGetRequest) returns (UrlGetResponse) {}
+  rpc DeleteUrl(CheckGetRequest) returns (CheckGetRequest) {}
+}

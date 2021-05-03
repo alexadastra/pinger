@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+  postgres:
+    restart: always
+    image: postgres:12
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: microservice-db
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - postgres
