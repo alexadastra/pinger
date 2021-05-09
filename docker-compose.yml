@@ -7,13 +7,19 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
       POSTGRES_DB: microservice-db
+    ports:
+      - "5432:5432"
+    volumes:
+    - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "50051:50051"
     restart: always
+    command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; go run main.go'
     depends_on:
-      - postgres
+      - "postgres"
+

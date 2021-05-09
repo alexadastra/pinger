@@ -3,17 +3,15 @@ package config
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 )
 
 const (
-	host     = "localhost"
+	host     = "url-microservice_postgres_1"
 	port     = 5432
 	user     = "root"
 	password = "password"
 	dbname   = "microservice-db"
 )
-
 
 var DB *sql.DB
 
@@ -24,7 +22,7 @@ func init() {
 
 	var err error
 	DB, err = sql.Open("postgres", psqlInfo)
-	if err != nil  {
+	if err != nil {
 		panic(err)
 	}
 

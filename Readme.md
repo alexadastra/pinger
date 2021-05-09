@@ -10,7 +10,11 @@ For local usage run following commands:
 make postgres
 make run
 ```
-This will enable PostgreSQL on localhost:5432 and gRPC endpoints on localhost:50001. For deploying with Docker, run `Dockerfile` and then `docker-compose up`.
+This will enable PostgreSQL on localhost:5432 and gRPC endpoints on localhost:50001. 
+For deploying with Docker, run :
+```bash
+docker-compose up
+```
 
 ## Usage
 
