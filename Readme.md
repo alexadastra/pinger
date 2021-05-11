@@ -3,17 +3,20 @@
 Microservice for HTTP requests status codes tracking.
 
 ## Installation
-First up, clone the repository.
-For local usage run following commands:
-
-```bash
-make postgres
-make run
-```
-This will enable PostgreSQL on localhost:5432 and gRPC endpoints on localhost:50001. 
-For deploying with Docker, run :
+First up, clone the repository. For deploying with Docker, run :
 ```bash
 docker-compose up
+```
+After that, microservice can be requested by 50001 port. You can use Postman or one of the clients inside project for testing.
+```bash
+ # for adding url to check
+ go run client/add_url.go
+ # retrieve last few checks for url 
+ go run client/get_checks_by_url.go 
+ # remove url from checking
+ go run client/remove_url.go 
+ # retrieve url that have n successful checks after date 
+ go run client/get_urls_by_date_and_n.go 
 ```
 
 ## Usage
@@ -61,6 +64,22 @@ message CheckGetResponse{
 ```
 ### Deleting URL to check
 Both input and output are the same CheckGetRequest with only URL accepting as argument.
+
+### Getting URLs by date and n
+Input: date of format "2020-Sep-19" and integer n.
+
+```
+message UrlGetRequest{
+  string date = 1;
+  int32 n = 2;
+}
+```
+Output: Urls that have n or more successful (2xx) checks after date.
+```
+message UrlGetResponse{
+  repeated string urls = 1;
+}
+```
 
 
 ## Development

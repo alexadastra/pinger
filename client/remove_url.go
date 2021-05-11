@@ -32,9 +32,7 @@ func main() {
 		Url: url,
 	})
 	if err != nil {
-		log.Fatalf("Could not delete Blog Post :%v", err)
+		log.Fatalf("Could not make request :%v", err)
 	}
-	log.Printf("Post Successfully Deleted")
+	log.Printf("Url successfully deleted")
 }
-
-

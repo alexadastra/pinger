@@ -37,12 +37,11 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	_, err = c.PostUrl(ctx, &url_service.UrlPostRequest{
-		Url: url,
+		Url:          url,
 		TimeInterval: interval,
 	})
 	if err != nil {
-		log.Fatalf("Could not create Blog Post :%v", err)
+		log.Fatalf("Could not make request :%v", err)
 	}
-	log.Printf("Post Successfully Created")
+	log.Printf("Url to check successfully created")
 }
-

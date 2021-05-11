@@ -38,12 +38,11 @@ func main() {
 		Limit: int32(limitInt),
 	})
 	if err != nil {
-		log.Fatalf("Could not create Blog Post :%v", err)
+		log.Fatalf("Could not make request :%v", err)
 	}
-	if data != nil{
-		for i:=0; i < len(data.Checks); i++{
-			fmt.Println(data.Checks[i].StatusCode)
+	if data != nil {
+		for i := 0; i < len(data.Checks); i++ {
+			fmt.Println(strconv.Itoa(int(data.Checks[i].StatusCode)) + " " + data.Checks[i].TimeChecked)
 		}
 	}
 }
-

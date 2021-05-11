@@ -15,16 +15,16 @@ import (
 )
 
 const (
-	port = ":50051"
-	defaultRequestMethod = "get"
-	defaultTimeInterval = 24 * 60 * 60
+	port                      = ":50051"
+	defaultRequestMethod      = "get"
+	defaultTimeInterval       = 24 * 60 * 60
 	defaultLimitForChecksView = 5
 )
 
 type UrlServer struct {
 	url_service.UnimplementedUrlServiceServer
-	urlStorage storage.UrlStorage
-	checkStorage storage.CheckStorage
+	urlStorage     storage.UrlStorage
+	checkStorage   storage.CheckStorage
 	checkScheduler scheduler.CheckScheduler
 }
 
@@ -47,7 +47,7 @@ func (s *UrlServer) PostUrl(ctx context.Context, req *url_service.UrlPostRequest
 	}
 	// pull request method; if not given, take "get"
 	requestMethod := req.GetMethod()
-	if requestMethod == ""{
+	if requestMethod == "" {
 		requestMethod = defaultRequestMethod
 	}
 	// form Url struct
@@ -59,7 +59,7 @@ func (s *UrlServer) PostUrl(ctx context.Context, req *url_service.UrlPostRequest
 	// save url in database
 	err = s.urlStorage.Save(&url)
 	if err != nil {
-		return nil, fmt.Errorf("url could not be added: %w",err)
+		return nil, fmt.Errorf("url could not be added: %w", err)
 	}
 	// add url to checking scheduler
 	err = s.checkScheduler.AddCheck(url.Url, url.Method, int(i))
@@ -73,15 +73,15 @@ func (s *UrlServer) PostUrl(ctx context.Context, req *url_service.UrlPostRequest
 
 func (s *UrlServer) GetChecks(ctx context.Context, req *url_service.CheckGetRequest) (*url_service.CheckGetResponse, error) {
 	url := req.GetUrl()
-	if url == ""{
+	if url == "" {
 		return nil, errors.New("url cannot be empty")
 	}
 	limit := req.GetLimit()
-	if limit == 0{
+	if limit == 0 {
 		limit = defaultLimitForChecksView
 	}
 	checks, err := s.checkStorage.ViewByUrl(url, int(limit))
-	if err != nil{
+	if err != nil {
 		return nil, errors.New("error while requesting db")
 	}
 	res := &url_service.CheckGetResponse{
@@ -99,7 +99,24 @@ func (s *UrlServer) DeleteUrl(ctx context.Context, req *url_service.CheckGetRequ
 	return res, nil
 }
 
-func main(){
+func (s *UrlServer) GetUrls(ctx context.Context, req *url_service.UrlGetRequest) (*url_service.UrlGetResponse, error) {
+	date, err := time.Parse("2006-Jan-02", req.GetDate())
+	if err != nil {
+		return nil, err
+	}
+	dateInt := int(date.Unix())
+	n := int(req.GetN())
+	urls, err := s.urlStorage.ViewUrlByDateAndN(dateInt, n)
+	if err != nil {
+		return nil, err
+	}
+	res := &url_service.UrlGetResponse{
+		Urls: urls,
+	}
+	return res, nil
+}
+
+func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
@@ -114,8 +131,8 @@ func main(){
 	urls, _ := dataBaseUrlStorage.View()
 	_ = cronCheckScheduler.Init(urls)
 
-	url_service.RegisterUrlServiceServer(server,&UrlServer{urlStorage: dataBaseUrlStorage,
-			checkStorage:dataBaseCheckStorage, checkScheduler: cronCheckScheduler})
+	url_service.RegisterUrlServiceServer(server, &UrlServer{urlStorage: dataBaseUrlStorage,
+		checkStorage: dataBaseCheckStorage, checkScheduler: cronCheckScheduler})
 
 	log.Printf("Server started at port %s", port)
 

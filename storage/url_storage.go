@@ -12,7 +12,8 @@ import (
 type UrlStorage interface {
 	Save(url *url_service.Url) error
 	View() ([]url_service.Url, error)
-	ViewIdByUrl (url string) (int, error)
+	ViewIdByUrl(url string) (int, error)
+	ViewUrlByDateAndN(date int, n int) ([]string, error)
 }
 
 type DataBaseUrlStorage struct {
@@ -42,7 +43,7 @@ func (storage *DataBaseUrlStorage) Save(url *url_service.Url) error {
 	return nil
 }
 
-func (storage *DataBaseUrlStorage) View() ([]url_service.Url, error){
+func (storage *DataBaseUrlStorage) View() ([]url_service.Url, error) {
 	rows, err := config.DB.Query("SELECT * FROM urls")
 	if err != nil {
 		return nil, err
@@ -64,7 +65,7 @@ func (storage *DataBaseUrlStorage) View() ([]url_service.Url, error){
 	return urls, nil
 }
 
-func (storage *DataBaseUrlStorage) ViewIdByUrl(url string) (int, error){
+func (storage *DataBaseUrlStorage) ViewIdByUrl(url string) (int, error) {
 	rows, err := config.DB.Query("SELECT * FROM urls WHERE url_string = '" + url + "'")
 
 	if err != nil {
@@ -86,4 +87,28 @@ func (storage *DataBaseUrlStorage) ViewIdByUrl(url string) (int, error){
 	}
 	id, err := strconv.ParseInt(urls[0].Id, 10, 64)
 	return int(id), nil
+}
+
+func (storage *DataBaseUrlStorage) ViewUrlByDateAndN(date int, n int) ([]string, error) {
+	rows, err := config.DB.Query("SELECT u.url_string FROM urls u INNER JOIN checks c ON u.url_id = c.url_id " +
+		"WHERE + c.unix_time_added >= " + strconv.Itoa(date) + "AND c.status_code >= 200 AND c.status_code < 300" +
+		"GROUP BY u.url_string HAVING COUNT(*) >=" + strconv.Itoa(n))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	urls := make([]string, 0)
+	for rows.Next() {
+		url := url_service.Url{}
+		err := rows.Scan(&url.Url)
+		if err != nil {
+			return nil, err
+		}
+		urls = append(urls, url.Url)
+	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+	return urls, nil
 }
