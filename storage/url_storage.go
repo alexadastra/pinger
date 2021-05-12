@@ -10,10 +10,10 @@ import (
 )
 
 type UrlStorage interface {
-	Save(url *url_service.Url) error
-	View() ([]url_service.Url, error)
-	ViewIdByUrl(url string) (int, error)
-	ViewUrlByDateAndN(date int, n int) ([]string, error)
+	Save(url *url_service.Url) error                     // save new url to db
+	View() ([]url_service.Url, error)                    // get all urls
+	ViewIdByUrl(url string) (int, error)                 // get url info by url string
+	ViewUrlByDateAndN(date int, n int) ([]string, error) // get urls with 'n' successful checks starting with 'date'
 }
 
 type DataBaseUrlStorage struct {

@@ -10,9 +10,9 @@ import (
 )
 
 type CheckStorage interface {
-	Save(check *url_service.Check) error
-	View() ([]url_service.Check, error)
-	ViewByUrl(url string, limit int) ([]*url_service.Check, error)
+	Save(check *url_service.Check) error                           // save new check in db
+	View() ([]url_service.Check, error)                            // get all checks
+	ViewByUrl(url string, limit int) ([]*url_service.Check, error) // get 'limit' check of the 'url'
 }
 
 type DataBaseCheckStorage struct {
@@ -42,7 +42,7 @@ func (storage *DataBaseCheckStorage) Save(check *url_service.Check) error {
 	return nil
 }
 
-func (storage *DataBaseCheckStorage) View() ([]url_service.Check, error){
+func (storage *DataBaseCheckStorage) View() ([]url_service.Check, error) {
 	rows, err := config.DB.Query("SELECT * FROM checks")
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (storage *DataBaseCheckStorage) View() ([]url_service.Check, error){
 	return checks, nil
 }
 
-func (storage *DataBaseCheckStorage) ViewByUrl(url string, limit int) ([]*url_service.Check, error){
+func (storage *DataBaseCheckStorage) ViewByUrl(url string, limit int) ([]*url_service.Check, error) {
 	rows, err := config.DB.Query("SELECT c.status_code, c.unix_time_added FROM checks c JOIN urls u ON c.url_id = u.url_id WHERE u.url_string = '" + url + "' ORDER BY c.unix_time_added DESC LIMIT " + strconv.Itoa(limit))
 	if err != nil {
 		return nil, err

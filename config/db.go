@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	host     = "url-microservice_postgres_1"
+	host = "url-microservice_postgres_1" // set this host for running service on Docker
+	//host = "localhost" // set this host for running service on localhost
 	port     = 5432
 	user     = "root"
 	password = "password"

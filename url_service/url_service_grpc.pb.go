@@ -25,7 +25,7 @@ type UrlServiceClient interface {
 	PostUrl(ctx context.Context, in *UrlPostRequest, opts ...grpc.CallOption) (*UrlPostResponse, error)
 	GetChecks(ctx context.Context, in *CheckGetRequest, opts ...grpc.CallOption) (*CheckGetResponse, error)
 	GetUrls(ctx context.Context, in *UrlGetRequest, opts ...grpc.CallOption) (*UrlGetResponse, error)
-	DeleteUrl(ctx context.Context, in *CheckGetRequest, opts ...grpc.CallOption) (*CheckGetRequest, error)
+	DeleteUrl(ctx context.Context, in *UrlDeleteRequest, opts ...grpc.CallOption) (*UrlDeleteResponse, error)
 }
 
 type urlServiceClient struct {
@@ -63,8 +63,8 @@ func (c *urlServiceClient) GetUrls(ctx context.Context, in *UrlGetRequest, opts 
 	return out, nil
 }
 
-func (c *urlServiceClient) DeleteUrl(ctx context.Context, in *CheckGetRequest, opts ...grpc.CallOption) (*CheckGetRequest, error) {
-	out := new(CheckGetRequest)
+func (c *urlServiceClient) DeleteUrl(ctx context.Context, in *UrlDeleteRequest, opts ...grpc.CallOption) (*UrlDeleteResponse, error) {
+	out := new(UrlDeleteResponse)
 	err := c.cc.Invoke(ctx, "/url_service.UrlService/DeleteUrl", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ type UrlServiceServer interface {
 	PostUrl(context.Context, *UrlPostRequest) (*UrlPostResponse, error)
 	GetChecks(context.Context, *CheckGetRequest) (*CheckGetResponse, error)
 	GetUrls(context.Context, *UrlGetRequest) (*UrlGetResponse, error)
-	DeleteUrl(context.Context, *CheckGetRequest) (*CheckGetRequest, error)
+	DeleteUrl(context.Context, *UrlDeleteRequest) (*UrlDeleteResponse, error)
 	mustEmbedUnimplementedUrlServiceServer()
 }
 
@@ -96,7 +96,7 @@ func (UnimplementedUrlServiceServer) GetChecks(context.Context, *CheckGetRequest
 func (UnimplementedUrlServiceServer) GetUrls(context.Context, *UrlGetRequest) (*UrlGetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUrls not implemented")
 }
-func (UnimplementedUrlServiceServer) DeleteUrl(context.Context, *CheckGetRequest) (*CheckGetRequest, error) {
+func (UnimplementedUrlServiceServer) DeleteUrl(context.Context, *UrlDeleteRequest) (*UrlDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUrl not implemented")
 }
 func (UnimplementedUrlServiceServer) mustEmbedUnimplementedUrlServiceServer() {}
@@ -167,7 +167,7 @@ func _UrlService_GetUrls_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _UrlService_DeleteUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckGetRequest)
+	in := new(UrlDeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ func _UrlService_DeleteUrl_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/url_service.UrlService/DeleteUrl",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UrlServiceServer).DeleteUrl(ctx, req.(*CheckGetRequest))
+		return srv.(UrlServiceServer).DeleteUrl(ctx, req.(*UrlDeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

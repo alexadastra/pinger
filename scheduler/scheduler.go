@@ -11,15 +11,15 @@ import (
 )
 
 type CheckScheduler interface {
-	AddCheck(url string, method string, time int) error
-	RemoveCheck(url string)
-	Init(urls []url_service.Url) error
+	AddCheck(url string, method string, time int) error // add url to check
+	RemoveCheck(url string)                             // remove url to check
+	Init(urls []url_service.Url) error                  // get all urls from db and init jobs for each of them
 }
 
-type CronCheckScheduler struct{
+type CronCheckScheduler struct {
 	scheduler    *gocron.Scheduler
 	requester    *check.HttpRequester
-	urlStorage *storage.DataBaseUrlStorage
+	urlStorage   *storage.DataBaseUrlStorage
 	checkStorage *storage.DataBaseCheckStorage
 	jobs         map[string]*gocron.Job
 }
@@ -34,8 +34,8 @@ func NewCronCheckScheduler() *CronCheckScheduler {
 	return c
 }
 
-func (checkScheduler *CronCheckScheduler) Init(urls []url_service.Url) error{
-	for i:=0; i < len(urls); i++{
+func (checkScheduler *CronCheckScheduler) Init(urls []url_service.Url) error {
+	for i := 0; i < len(urls); i++ {
 		timeInterval, _ := strconv.ParseInt(urls[i].TimeInterval, 10, 64)
 		err := checkScheduler.AddCheck(urls[i].Url, urls[i].Method, int(timeInterval))
 		if err != nil {
@@ -48,8 +48,8 @@ func (checkScheduler *CronCheckScheduler) Init(urls []url_service.Url) error{
 
 func (checkScheduler *CronCheckScheduler) makeUrlRequest(url string, method string) {
 	code, err := checkScheduler.requester.DoRequest(url, method)
-	if err != nil{
-		fmt.Println(nil)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	newCheck := url_service.Check{}
@@ -66,7 +66,7 @@ func (checkScheduler *CronCheckScheduler) makeUrlRequest(url string, method stri
 	}
 }
 
-func (checkScheduler *CronCheckScheduler) AddCheck(url string, method string, time int) error{
+func (checkScheduler *CronCheckScheduler) AddCheck(url string, method string, time int) error {
 	job, err := checkScheduler.scheduler.Every(time).Seconds().Do(checkScheduler.makeUrlRequest, url, method)
 	if err != nil {
 		return err
@@ -79,4 +79,3 @@ func (checkScheduler *CronCheckScheduler) RemoveCheck(a string) {
 	job := checkScheduler.jobs[a]
 	checkScheduler.scheduler.RemoveByReference(job)
 }
-

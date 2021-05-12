@@ -44,5 +44,7 @@ func main() {
 		for i := 0; i < len(data.Checks); i++ {
 			fmt.Println(strconv.Itoa(int(data.Checks[i].StatusCode)) + " " + data.Checks[i].TimeChecked)
 		}
+	} else {
+		fmt.Println("nothing received!")
 	}
 }

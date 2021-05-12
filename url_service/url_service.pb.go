@@ -99,7 +99,7 @@ func (x *Url) GetTimeInterval() string {
 	return ""
 }
 
-type UrlPostRequest struct {
+type UrlDto struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -109,10 +109,71 @@ type UrlPostRequest struct {
 	TimeInterval string `protobuf:"bytes,3,opt,name=time_interval,json=timeInterval,proto3" json:"time_interval,omitempty"`
 }
 
+func (x *UrlDto) Reset() {
+	*x = UrlDto{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UrlDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UrlDto) ProtoMessage() {}
+
+func (x *UrlDto) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UrlDto.ProtoReflect.Descriptor instead.
+func (*UrlDto) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UrlDto) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *UrlDto) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *UrlDto) GetTimeInterval() string {
+	if x != nil {
+		return x.TimeInterval
+	}
+	return ""
+}
+
+type UrlPostRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Url *UrlDto `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+}
+
 func (x *UrlPostRequest) Reset() {
 	*x = UrlPostRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[1]
+		mi := &file_url_service_url_service_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -125,7 +186,7 @@ func (x *UrlPostRequest) String() string {
 func (*UrlPostRequest) ProtoMessage() {}
 
 func (x *UrlPostRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[1]
+	mi := &file_url_service_url_service_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -138,28 +199,14 @@ func (x *UrlPostRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UrlPostRequest.ProtoReflect.Descriptor instead.
 func (*UrlPostRequest) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{1}
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *UrlPostRequest) GetUrl() string {
+func (x *UrlPostRequest) GetUrl() *UrlDto {
 	if x != nil {
 		return x.Url
 	}
-	return ""
-}
-
-func (x *UrlPostRequest) GetMethod() string {
-	if x != nil {
-		return x.Method
-	}
-	return ""
-}
-
-func (x *UrlPostRequest) GetTimeInterval() string {
-	if x != nil {
-		return x.TimeInterval
-	}
-	return ""
+	return nil
 }
 
 type UrlPostResponse struct {
@@ -173,7 +220,7 @@ type UrlPostResponse struct {
 func (x *UrlPostResponse) Reset() {
 	*x = UrlPostResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[2]
+		mi := &file_url_service_url_service_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -186,7 +233,7 @@ func (x *UrlPostResponse) String() string {
 func (*UrlPostResponse) ProtoMessage() {}
 
 func (x *UrlPostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[2]
+	mi := &file_url_service_url_service_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -199,7 +246,7 @@ func (x *UrlPostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UrlPostResponse.ProtoReflect.Descriptor instead.
 func (*UrlPostResponse) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{2}
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UrlPostResponse) GetUrl() *Url {
@@ -207,6 +254,193 @@ func (x *UrlPostResponse) GetUrl() *Url {
 		return x.Url
 	}
 	return nil
+}
+
+type UrlGetRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Date string `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	N    int32  `protobuf:"varint,2,opt,name=n,proto3" json:"n,omitempty"`
+}
+
+func (x *UrlGetRequest) Reset() {
+	*x = UrlGetRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UrlGetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UrlGetRequest) ProtoMessage() {}
+
+func (x *UrlGetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UrlGetRequest.ProtoReflect.Descriptor instead.
+func (*UrlGetRequest) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UrlGetRequest) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *UrlGetRequest) GetN() int32 {
+	if x != nil {
+		return x.N
+	}
+	return 0
+}
+
+type UrlGetResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Urls []string `protobuf:"bytes,1,rep,name=urls,proto3" json:"urls,omitempty"`
+}
+
+func (x *UrlGetResponse) Reset() {
+	*x = UrlGetResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UrlGetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UrlGetResponse) ProtoMessage() {}
+
+func (x *UrlGetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UrlGetResponse.ProtoReflect.Descriptor instead.
+func (*UrlGetResponse) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UrlGetResponse) GetUrls() []string {
+	if x != nil {
+		return x.Urls
+	}
+	return nil
+}
+
+type UrlDeleteRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+}
+
+func (x *UrlDeleteRequest) Reset() {
+	*x = UrlDeleteRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UrlDeleteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UrlDeleteRequest) ProtoMessage() {}
+
+func (x *UrlDeleteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UrlDeleteRequest.ProtoReflect.Descriptor instead.
+func (*UrlDeleteRequest) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UrlDeleteRequest) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type UrlDeleteResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UrlDeleteResponse) Reset() {
+	*x = UrlDeleteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UrlDeleteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UrlDeleteResponse) ProtoMessage() {}
+
+func (x *UrlDeleteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UrlDeleteResponse.ProtoReflect.Descriptor instead.
+func (*UrlDeleteResponse) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{7}
 }
 
 type Check struct {
@@ -223,7 +457,7 @@ type Check struct {
 func (x *Check) Reset() {
 	*x = Check{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[3]
+		mi := &file_url_service_url_service_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -236,7 +470,7 @@ func (x *Check) String() string {
 func (*Check) ProtoMessage() {}
 
 func (x *Check) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[3]
+	mi := &file_url_service_url_service_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +483,7 @@ func (x *Check) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Check.ProtoReflect.Descriptor instead.
 func (*Check) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{3}
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Check) GetId() string {
@@ -280,6 +514,61 @@ func (x *Check) GetTimeChecked() string {
 	return ""
 }
 
+type CheckDto struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	StatusCode  int32  `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
+	TimeChecked string `protobuf:"bytes,2,opt,name=time_checked,json=timeChecked,proto3" json:"time_checked,omitempty"`
+}
+
+func (x *CheckDto) Reset() {
+	*x = CheckDto{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_url_service_url_service_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckDto) ProtoMessage() {}
+
+func (x *CheckDto) ProtoReflect() protoreflect.Message {
+	mi := &file_url_service_url_service_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckDto.ProtoReflect.Descriptor instead.
+func (*CheckDto) Descriptor() ([]byte, []int) {
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *CheckDto) GetStatusCode() int32 {
+	if x != nil {
+		return x.StatusCode
+	}
+	return 0
+}
+
+func (x *CheckDto) GetTimeChecked() string {
+	if x != nil {
+		return x.TimeChecked
+	}
+	return ""
+}
+
 type CheckGetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -292,7 +581,7 @@ type CheckGetRequest struct {
 func (x *CheckGetRequest) Reset() {
 	*x = CheckGetRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[4]
+		mi := &file_url_service_url_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -305,7 +594,7 @@ func (x *CheckGetRequest) String() string {
 func (*CheckGetRequest) ProtoMessage() {}
 
 func (x *CheckGetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[4]
+	mi := &file_url_service_url_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -318,7 +607,7 @@ func (x *CheckGetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckGetRequest.ProtoReflect.Descriptor instead.
 func (*CheckGetRequest) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{4}
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *CheckGetRequest) GetUrl() string {
@@ -340,13 +629,13 @@ type CheckGetResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Checks []*Check `protobuf:"bytes,1,rep,name=checks,proto3" json:"checks,omitempty"`
+	Checks []*CheckDto `protobuf:"bytes,1,rep,name=checks,proto3" json:"checks,omitempty"`
 }
 
 func (x *CheckGetResponse) Reset() {
 	*x = CheckGetResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[5]
+		mi := &file_url_service_url_service_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -359,7 +648,7 @@ func (x *CheckGetResponse) String() string {
 func (*CheckGetResponse) ProtoMessage() {}
 
 func (x *CheckGetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[5]
+	mi := &file_url_service_url_service_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -372,114 +661,12 @@ func (x *CheckGetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckGetResponse.ProtoReflect.Descriptor instead.
 func (*CheckGetResponse) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{5}
+	return file_url_service_url_service_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *CheckGetResponse) GetChecks() []*Check {
+func (x *CheckGetResponse) GetChecks() []*CheckDto {
 	if x != nil {
 		return x.Checks
-	}
-	return nil
-}
-
-type UrlGetRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Date string `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
-	N    int32  `protobuf:"varint,2,opt,name=n,proto3" json:"n,omitempty"`
-}
-
-func (x *UrlGetRequest) Reset() {
-	*x = UrlGetRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UrlGetRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UrlGetRequest) ProtoMessage() {}
-
-func (x *UrlGetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UrlGetRequest.ProtoReflect.Descriptor instead.
-func (*UrlGetRequest) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *UrlGetRequest) GetDate() string {
-	if x != nil {
-		return x.Date
-	}
-	return ""
-}
-
-func (x *UrlGetRequest) GetN() int32 {
-	if x != nil {
-		return x.N
-	}
-	return 0
-}
-
-type UrlGetResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Urls []string `protobuf:"bytes,1,rep,name=urls,proto3" json:"urls,omitempty"`
-}
-
-func (x *UrlGetResponse) Reset() {
-	*x = UrlGetResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_url_service_url_service_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UrlGetResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UrlGetResponse) ProtoMessage() {}
-
-func (x *UrlGetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_url_service_url_service_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UrlGetResponse.ProtoReflect.Descriptor instead.
-func (*UrlGetResponse) Descriptor() ([]byte, []int) {
-	return file_url_service_url_service_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *UrlGetResponse) GetUrls() []string {
-	if x != nil {
-		return x.Urls
 	}
 	return nil
 }
@@ -498,57 +685,69 @@ var file_url_service_url_service_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
 	0x64, 0x12, 0x23, 0x0a, 0x0d, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76,
 	0x61, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x74, 0x69, 0x6d, 0x65, 0x49, 0x6e,
-	0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x22, 0x5f, 0x0a, 0x0e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73,
-	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65,
-	0x74, 0x68, 0x6f, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68,
-	0x6f, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72,
-	0x76, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x74, 0x69, 0x6d, 0x65, 0x49,
-	0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x22, 0x35, 0x0a, 0x0f, 0x55, 0x72, 0x6c, 0x50, 0x6f,
-	0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x22, 0x0a, 0x03, 0x75, 0x72,
-	0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x6d,
-	0x0a, 0x05, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a,
-	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x74, 0x69,
-	0x6d, 0x65, 0x5f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0b, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x64, 0x22, 0x39, 0x0a,
-	0x0f, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x22, 0x57, 0x0a, 0x06, 0x55, 0x72, 0x6c, 0x44, 0x74, 0x6f,
 	0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75,
-	0x72, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0x3e, 0x0a, 0x10, 0x43, 0x68, 0x65, 0x63,
-	0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2a, 0x0a, 0x06,
-	0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x75,
-	0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b,
-	0x52, 0x06, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x22, 0x31, 0x0a, 0x0d, 0x55, 0x72, 0x6c, 0x47,
-	0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74,
-	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x12, 0x0c, 0x0a,
-	0x01, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x01, 0x6e, 0x22, 0x24, 0x0a, 0x0e, 0x55,
-	0x72, 0x6c, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a,
-	0x04, 0x75, 0x72, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x75, 0x72, 0x6c,
-	0x73, 0x32, 0xb1, 0x02, 0x0a, 0x0a, 0x55, 0x72, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x12, 0x46, 0x0a, 0x07, 0x50, 0x6f, 0x73, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x1b, 0x2e, 0x75, 0x72,
-	0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73,
-	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4a, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x43,
-	0x68, 0x65, 0x63, 0x6b, 0x73, 0x12, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x44, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x55, 0x72, 0x6c, 0x73, 0x12,
-	0x1a, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72,
-	0x6c, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x75, 0x72,
-	0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x47, 0x65, 0x74,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x09, 0x44, 0x65,
-	0x6c, 0x65, 0x74, 0x65, 0x55, 0x72, 0x6c, 0x12, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x22, 0x00, 0x42, 0x0e, 0x5a, 0x0c, 0x2f, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x6c, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x74, 0x69,
+	0x6d, 0x65, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0c, 0x74, 0x69, 0x6d, 0x65, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x22,
+	0x37, 0x0a, 0x0e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x25, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13,
+	0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c,
+	0x44, 0x74, 0x6f, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x35, 0x0a, 0x0f, 0x55, 0x72, 0x6c, 0x50,
+	0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x22, 0x0a, 0x03, 0x75,
+	0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22,
+	0x31, 0x0a, 0x0d, 0x55, 0x72, 0x6c, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x64, 0x61, 0x74, 0x65, 0x12, 0x0c, 0x0a, 0x01, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x01, 0x6e, 0x22, 0x24, 0x0a, 0x0e, 0x55, 0x72, 0x6c, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x72, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x09, 0x52, 0x04, 0x75, 0x72, 0x6c, 0x73, 0x22, 0x24, 0x0a, 0x10, 0x55, 0x72, 0x6c, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03,
+	0x75, 0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x13,
+	0x0a, 0x11, 0x55, 0x72, 0x6c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x6d, 0x0a, 0x05, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03,
+	0x75, 0x72, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x1f,
+	0x0a, 0x0b, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x6f, 0x64, 0x65, 0x12,
+	0x21, 0x0a, 0x0c, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x64, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x68, 0x65, 0x63, 0x6b,
+	0x65, 0x64, 0x22, 0x4e, 0x0a, 0x08, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x44, 0x74, 0x6f, 0x12, 0x1f,
+	0x0a, 0x0b, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x6f, 0x64, 0x65, 0x12,
+	0x21, 0x0a, 0x0c, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x74, 0x69, 0x6d, 0x65, 0x43, 0x68, 0x65, 0x63, 0x6b,
+	0x65, 0x64, 0x22, 0x39, 0x0a, 0x0f, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0x41, 0x0a,
+	0x10, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x2d, 0x0a, 0x06, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x15, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x43, 0x68, 0x65, 0x63, 0x6b, 0x44, 0x74, 0x6f, 0x52, 0x06, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73,
+	0x32, 0xb4, 0x02, 0x0a, 0x0a, 0x55, 0x72, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
+	0x46, 0x0a, 0x07, 0x50, 0x6f, 0x73, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x1b, 0x2e, 0x75, 0x72, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73, 0x74,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4a, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x73, 0x12, 0x1c, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x44, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x55, 0x72, 0x6c, 0x73, 0x12, 0x1a,
+	0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c,
+	0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x75, 0x72, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x47, 0x65, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4c, 0x0a, 0x09, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x55, 0x72, 0x6c, 0x12, 0x1d, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x75, 0x72, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x55, 0x72, 0x6c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x0e, 0x5a, 0x0c, 0x2f, 0x75, 0x72, 0x6c, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -563,33 +762,38 @@ func file_url_service_url_service_proto_rawDescGZIP() []byte {
 	return file_url_service_url_service_proto_rawDescData
 }
 
-var file_url_service_url_service_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_url_service_url_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_url_service_url_service_proto_goTypes = []interface{}{
-	(*Url)(nil),              // 0: url_service.Url
-	(*UrlPostRequest)(nil),   // 1: url_service.UrlPostRequest
-	(*UrlPostResponse)(nil),  // 2: url_service.UrlPostResponse
-	(*Check)(nil),            // 3: url_service.Check
-	(*CheckGetRequest)(nil),  // 4: url_service.CheckGetRequest
-	(*CheckGetResponse)(nil), // 5: url_service.CheckGetResponse
-	(*UrlGetRequest)(nil),    // 6: url_service.UrlGetRequest
-	(*UrlGetResponse)(nil),   // 7: url_service.UrlGetResponse
+	(*Url)(nil),               // 0: url_service.Url
+	(*UrlDto)(nil),            // 1: url_service.UrlDto
+	(*UrlPostRequest)(nil),    // 2: url_service.UrlPostRequest
+	(*UrlPostResponse)(nil),   // 3: url_service.UrlPostResponse
+	(*UrlGetRequest)(nil),     // 4: url_service.UrlGetRequest
+	(*UrlGetResponse)(nil),    // 5: url_service.UrlGetResponse
+	(*UrlDeleteRequest)(nil),  // 6: url_service.UrlDeleteRequest
+	(*UrlDeleteResponse)(nil), // 7: url_service.UrlDeleteResponse
+	(*Check)(nil),             // 8: url_service.Check
+	(*CheckDto)(nil),          // 9: url_service.CheckDto
+	(*CheckGetRequest)(nil),   // 10: url_service.CheckGetRequest
+	(*CheckGetResponse)(nil),  // 11: url_service.CheckGetResponse
 }
 var file_url_service_url_service_proto_depIdxs = []int32{
-	0, // 0: url_service.UrlPostResponse.url:type_name -> url_service.Url
-	3, // 1: url_service.CheckGetResponse.checks:type_name -> url_service.Check
-	1, // 2: url_service.UrlService.PostUrl:input_type -> url_service.UrlPostRequest
-	4, // 3: url_service.UrlService.GetChecks:input_type -> url_service.CheckGetRequest
-	6, // 4: url_service.UrlService.GetUrls:input_type -> url_service.UrlGetRequest
-	4, // 5: url_service.UrlService.DeleteUrl:input_type -> url_service.CheckGetRequest
-	2, // 6: url_service.UrlService.PostUrl:output_type -> url_service.UrlPostResponse
-	5, // 7: url_service.UrlService.GetChecks:output_type -> url_service.CheckGetResponse
-	7, // 8: url_service.UrlService.GetUrls:output_type -> url_service.UrlGetResponse
-	4, // 9: url_service.UrlService.DeleteUrl:output_type -> url_service.CheckGetRequest
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1,  // 0: url_service.UrlPostRequest.url:type_name -> url_service.UrlDto
+	0,  // 1: url_service.UrlPostResponse.url:type_name -> url_service.Url
+	9,  // 2: url_service.CheckGetResponse.checks:type_name -> url_service.CheckDto
+	2,  // 3: url_service.UrlService.PostUrl:input_type -> url_service.UrlPostRequest
+	10, // 4: url_service.UrlService.GetChecks:input_type -> url_service.CheckGetRequest
+	4,  // 5: url_service.UrlService.GetUrls:input_type -> url_service.UrlGetRequest
+	6,  // 6: url_service.UrlService.DeleteUrl:input_type -> url_service.UrlDeleteRequest
+	3,  // 7: url_service.UrlService.PostUrl:output_type -> url_service.UrlPostResponse
+	11, // 8: url_service.UrlService.GetChecks:output_type -> url_service.CheckGetResponse
+	5,  // 9: url_service.UrlService.GetUrls:output_type -> url_service.UrlGetResponse
+	7,  // 10: url_service.UrlService.DeleteUrl:output_type -> url_service.UrlDeleteResponse
+	7,  // [7:11] is the sub-list for method output_type
+	3,  // [3:7] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_url_service_url_service_proto_init() }
@@ -611,7 +815,7 @@ func file_url_service_url_service_proto_init() {
 			}
 		}
 		file_url_service_url_service_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UrlPostRequest); i {
+			switch v := v.(*UrlDto); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -623,7 +827,7 @@ func file_url_service_url_service_proto_init() {
 			}
 		}
 		file_url_service_url_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UrlPostResponse); i {
+			switch v := v.(*UrlPostRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -635,7 +839,7 @@ func file_url_service_url_service_proto_init() {
 			}
 		}
 		file_url_service_url_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Check); i {
+			switch v := v.(*UrlPostResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -647,30 +851,6 @@ func file_url_service_url_service_proto_init() {
 			}
 		}
 		file_url_service_url_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CheckGetRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_url_service_url_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CheckGetResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_url_service_url_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UrlGetRequest); i {
 			case 0:
 				return &v.state
@@ -682,8 +862,80 @@ func file_url_service_url_service_proto_init() {
 				return nil
 			}
 		}
-		file_url_service_url_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_url_service_url_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UrlGetResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UrlDeleteRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UrlDeleteResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Check); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckDto); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckGetRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_url_service_url_service_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckGetResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -701,7 +953,7 @@ func file_url_service_url_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_url_service_url_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

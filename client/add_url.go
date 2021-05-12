@@ -30,18 +30,27 @@ func main() {
 	fmt.Print("Enter Url: ")
 	url, _ := reader.ReadString('\n')
 	url = strings.Trim(url, "\n")
+
+	fmt.Print("Enter request method: ")
+	method, _ := reader.ReadString('\n')
+	method = strings.Trim(method, "\n")
+
 	fmt.Print("Enter time interval: ")
 	interval, _ := reader.ReadString('\n')
 	interval = strings.Trim(interval, "\n")
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	_, err = c.PostUrl(ctx, &url_service.UrlPostRequest{
+	dto := &url_service.UrlDto{
 		Url:          url,
+		Method:       method,
 		TimeInterval: interval,
+	}
+	_, err = c.PostUrl(ctx, &url_service.UrlPostRequest{
+		Url: dto,
 	})
 	if err != nil {
 		log.Fatalf("Could not make request :%v", err)
 	}
-	log.Printf("Url to check successfully created")
+	log.Printf("Url to check successfully created!")
 }

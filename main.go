@@ -23,30 +23,32 @@ const (
 
 type UrlServer struct {
 	url_service.UnimplementedUrlServiceServer
-	urlStorage     storage.UrlStorage
-	checkStorage   storage.CheckStorage
-	checkScheduler scheduler.CheckScheduler
+	urlStorage     storage.UrlStorage       // url repository
+	checkStorage   storage.CheckStorage     // check repository
+	checkScheduler scheduler.CheckScheduler // scheduler module, that automatically performs url requests
 }
 
 func (s *UrlServer) PostUrl(ctx context.Context, req *url_service.UrlPostRequest) (*url_service.UrlPostResponse, error) {
+	// get dto from request
+	urlDto := req.GetUrl()
 	// pull url string
-	urlString := req.GetUrl()
+	urlString := urlDto.GetUrl()
 	if urlString == "" {
 		return nil, errors.New("url cannot be empty")
 	}
-	// pull time interval to check;
+	// pull time interval to check
+	timeInterval := urlDto.GetTimeInterval()
 	// if not given, take number of seconds in 24 hours
-	// if not a number, return error
-	timeInterval := req.GetTimeInterval()
 	if timeInterval == "" {
 		timeInterval = strconv.Itoa(defaultTimeInterval)
 	}
 	i, err := strconv.ParseInt(timeInterval, 10, 64)
+	// if not a number, return error
 	if err != nil {
 		return nil, errors.New("406. Not Acceptable. Time interval must be an integer")
 	}
 	// pull request method; if not given, take "get"
-	requestMethod := req.GetMethod()
+	requestMethod := urlDto.GetMethod()
 	if requestMethod == "" {
 		requestMethod = defaultRequestMethod
 	}
@@ -84,26 +86,35 @@ func (s *UrlServer) GetChecks(ctx context.Context, req *url_service.CheckGetRequ
 	if err != nil {
 		return nil, errors.New("error while requesting db")
 	}
+	// create []CheckDto from []Check by passing status code and formatting unix time to YYYY-MM-DD HH:MM:SS
+	checkDtos := make([]*url_service.CheckDto, 0)
+	for i := 0; i < len(checks); i++ {
+		checkDto := url_service.CheckDto{}
+		checkDto.StatusCode = checks[i].StatusCode
+		timeInt, _ := strconv.ParseInt(checks[i].TimeChecked, 10, 64)
+		checkDto.TimeChecked = time.Unix(timeInt, 0).Format("2006-01-02 15:04:05")
+		checkDtos = append(checkDtos, &checkDto)
+	}
 	res := &url_service.CheckGetResponse{
-		Checks: checks,
+		Checks: checkDtos,
 	}
 	return res, nil
 }
 
-func (s *UrlServer) DeleteUrl(ctx context.Context, req *url_service.CheckGetRequest) (*url_service.CheckGetRequest, error) {
+func (s *UrlServer) DeleteUrl(ctx context.Context, req *url_service.UrlDeleteRequest) (*url_service.UrlDeleteResponse, error) {
 	url := req.GetUrl()
 	s.checkScheduler.RemoveCheck(url)
-	res := &url_service.CheckGetRequest{
-		Url: url,
-	}
+	res := &url_service.UrlDeleteResponse{}
 	return res, nil
 }
 
 func (s *UrlServer) GetUrls(ctx context.Context, req *url_service.UrlGetRequest) (*url_service.UrlGetResponse, error) {
+	// parse date as YYYY-MMM-DD (time is set to 00:00 UTC)
 	date, err := time.Parse("2006-Jan-02", req.GetDate())
 	if err != nil {
 		return nil, err
 	}
+	// convert date to unix time format for querying the database
 	dateInt := int(date.Unix())
 	n := int(req.GetN())
 	urls, err := s.urlStorage.ViewUrlByDateAndN(dateInt, n)
